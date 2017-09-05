@@ -1,0 +1,239 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<helpItems schema="maml">
+
+<command:command xmlns:maml="http://schemas.microsoft.com/maml/2004/10" xmlns:command="http://schemas.microsoft.com/maml/dev/command/2004/10" xmlns:dev="http://schemas.microsoft.com/maml/dev/2004/10" xmlns:MSHelp="http://msdn.microsoft.com/mshelp">
+
+    <command:details>
+        <command:name>ConvertFrom-sthSID</command:name>
+        <command:verb>ConvertFrom</command:verb>
+        <command:noun>sthSID</command:noun>
+        <maml:description>
+            <maml:para>Function for converting string SID into byte array form.
+            </maml:para>
+        </maml:description>
+    </command:details>
+
+    <maml:description>
+        <maml:para>Function converts string form of SID into byte array,
+the form that the SID is represented in Active Directory.
+        </maml:para>
+    </maml:description>
+
+    <command:syntax>
+        <command:syntaxItem>
+            <maml:name>ConvertFrom-sthSID</maml:name>
+            <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="True (ByValue)" position="0" aliases="none">
+                <maml:name>SID</maml:name>
+                <maml:Description>
+                    <maml:para>SID in string form.
+                    </maml:para>
+                </maml:Description>
+                <command:parameterValue required="false" variableLength="false">String[]</command:parameterValue>
+                <dev:type>
+                    <maml:name>String[]</maml:name>
+                    <maml:uri />
+                </dev:type>
+                <dev:defaultValue>None</dev:defaultValue>
+            </command:parameter>
+
+        </command:syntaxItem>
+
+    </command:syntax>
+
+    <command:parameters>
+
+        <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="True (ByValue)" position="0" aliases="none">
+            <maml:name>SID</maml:name>
+            <maml:Description>
+                <maml:para>SID in string form.
+                </maml:para>
+            </maml:Description>
+            <command:parameterValue required="true" variableLength="false">String[]</command:parameterValue>
+            <dev:type>
+                <maml:name>String[]</maml:name>
+                <maml:uri />
+            </dev:type>
+            <dev:defaultValue>None</dev:defaultValue>
+        </command:parameter>
+
+    </command:parameters>
+
+    <maml:alertSet>
+        <maml:alert>
+            <maml:para>Additional information.
+
+2.4.2.2 SID--Packet Representation
+https://msdn.microsoft.com/en-us/library/gg465313.aspx
+
+1 byte - Revision (must be 1)
+1 byte - SubAuthorityCount (not included in String SID)
+6 bytes - IdentifierAuthority
+SubAuthorityCount * 4 bytes (32 bits) - SubAuthority
+
+# $in[0] - Revision
+# $in[1] - SubAuthorityCount (not included in String SID)
+# $in[2..7] - IdentifierAuthority, because $in[2..6] are zeroes, actually $in[7]
+# $in[8..11]  - First Block of SubAuthority
+# $in[12..15] - Second Block of SubAuthority
+# $in[16..19] - Third Block of SubAuthority
+# $in[20..23] - Fourth Block of SubAuthority
+# $in[24..27] - Fifth Block of SubAuthority
+            </maml:para>
+        </maml:alert>
+    </maml:alertSet>
+
+
+    <command:examples>
+        <command:example>
+            <maml:title>-------------------------- EXAMPLE 1 --------------------------</maml:title>
+            <dev:code>ConvertFrom-sthSID -SID 'S-1-5-21-1234567890-1234567890-1234567890-1234'
+            </dev:code>
+            <dev:remarks>
+                <maml:para/>
+                <maml:para>Convert string SID into a byte array.
+                </maml:para>
+                <maml:para/>
+                <maml:para/>
+            </dev:remarks>
+        </command:example>
+
+        <command:example>
+            <maml:title>-------------------------- EXAMPLE 2 --------------------------</maml:title>
+            <dev:code>'S-1-5-21-1234567890-1234567890-1234567890-1234' | ConvertFrom-sthSID
+            </dev:code>
+            <dev:remarks>
+                <maml:para/>
+                <maml:para>Convert string SID into byte array using pipeline.
+                </maml:para>
+                <maml:para/>
+                <maml:para/>
+            </dev:remarks>
+        </command:example>
+
+    </command:examples>
+
+</command:command>
+
+<command:command xmlns:maml="http://schemas.microsoft.com/maml/2004/10" xmlns:command="http://schemas.microsoft.com/maml/dev/command/2004/10" xmlns:dev="http://schemas.microsoft.com/maml/dev/2004/10" xmlns:MSHelp="http://msdn.microsoft.com/mshelp">
+
+    <command:details>
+        <command:name>ConvertTo-sthSID</command:name>
+        <command:verb>ConvertTo</command:verb>
+        <command:noun>sthSID</command:noun>
+        <maml:description>
+            <maml:para>Function for converting byte array into string SID.
+            </maml:para>
+        </maml:description>
+    </command:details>
+
+    <maml:description>
+        <maml:para>When you query the Active Directory for computer or user object's objectSID property
+by means of ADSI, for example:
+
+    $User = [ADSI]"LDAP://CN=user_name,CN=Users,DC=domain_name,DC=com"
+    $User.objectSID
+
+you get a byte array.
+
+This function converts this byte array into a string form of SID.
+        </maml:para>
+    </maml:description>
+
+    <command:syntax>
+        <command:syntaxItem>
+            <maml:name>ConvertTo-sthSID</maml:name>
+            <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="True (ByValue)" position="0" aliases="none">
+                <maml:name>ByteArray</maml:name>
+                <maml:Description>
+                    <maml:para>User or Computer object's objectSID property in the byte array form.
+                    </maml:para>
+                </maml:Description>
+                <command:parameterValue required="true" variableLength="false">Byte[]</command:parameterValue>
+                <dev:type>
+                    <maml:name>Byte[]</maml:name>
+                    <maml:uri />
+                </dev:type>
+                <dev:defaultValue>None</dev:defaultValue>
+            </command:parameter>
+
+
+        </command:syntaxItem>
+    </command:syntax>
+
+    <command:parameters>
+
+        <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="True (ByValue)" position="0" aliases="none">
+            <maml:name>ByteArray</maml:name>
+            <maml:Description>
+                <maml:para>User or Computer object's objectSID property in the byte array form.
+                </maml:para>
+            </maml:Description>
+            <command:parameterValue required="true" variableLength="false">Byte[]</command:parameterValue>
+            <dev:type>
+                <maml:name>Byte[]</maml:name>
+                <maml:uri />
+            </dev:type>
+            <dev:defaultValue>None</dev:defaultValue>
+        </command:parameter>
+
+    </command:parameters>
+
+    <maml:alertSet>
+        <maml:alert>
+            <maml:para>Additional information.
+
+2.4.2.2 SID--Packet Representation
+https://msdn.microsoft.com/en-us/library/gg465313.aspx
+
+1 byte - Revision (must be 1)
+1 byte - SubAuthorityCount (not included in String SID)
+6 bytes - IdentifierAuthority
+SubAuthorityCount * 4 bytes (32 bits) - SubAuthority
+
+# $in[0] - Revision
+# $in[1] - SubAuthorityCount (not included in String SID)
+# $in[2..7] - IdentifierAuthority, because $in[2..6] are zeroes, actually $in[7]
+# $in[8..11]  - First Block of SubAuthority
+# $in[12..15] - Second Block of SubAuthority
+# $in[16..19] - Third Block of SubAuthority
+# $in[20..23] - Fourth Block of SubAuthority
+# $in[24..27] - Fifth Block of SubAuthority
+            </maml:para>
+        </maml:alert>
+    </maml:alertSet>
+
+    <command:examples>
+        <command:example>
+            <maml:title>-------------------------- EXAMPLE 1 --------------------------</maml:title>
+            <dev:code>$User = [ADSI]"LDAP://CN=user_name,CN=Users,DC=domain_name,DC=com"
+ConvertTo-sthSID -ByteArray $User.objectSID
+            </dev:code>
+            <dev:remarks>
+                <maml:para/>
+                <maml:para>Get the user_name user object and convert its objectSID property into a string form.
+                </maml:para>
+                <maml:para/>
+                <maml:para/>
+            </dev:remarks>
+        </command:example>
+
+        <command:example>
+            <maml:title>-------------------------- EXAMPLE 2 --------------------------</maml:title>
+            <dev:code>$User = [ADSI]"LDAP://CN=user_name,CN=Users,DC=domain_name,DC=com"
+$User.objectSID | ConvertTo-sthSID
+            </dev:code>
+            <dev:remarks>
+                <maml:para/>
+                <maml:para>Get the user_name user object and convert its objectSID property into a string form
+using pipeline.
+                </maml:para>
+                <maml:para/>
+                <maml:para/>
+            </dev:remarks>
+        </command:example>
+
+    </command:examples>
+
+</command:command>
+
+</helpItems>
