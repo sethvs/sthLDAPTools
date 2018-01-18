@@ -5,6 +5,7 @@
 function ConvertFrom-sthSID
 {
     [CmdletBinding()]
+    [OutputType([System.Byte])]
     Param(
         # SID in string form.
         [Parameter(Mandatory=$true,ValueFromPipeline=$true)]
