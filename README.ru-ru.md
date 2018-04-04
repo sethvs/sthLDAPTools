@@ -4,9 +4,9 @@
 
 В модуль входят следующие функции:
 
-**ConvertFrom-sthSID** — Функция для конвертации строки SID в массив байтов.
+[**ConvertFrom-sthSID**](#convertfrom-sthsid) — Функция для конвертации строки SID в массив байтов.
 
-**ConvertTo-sthSID** — Функция для конвертации SID, представленного в виде массива байтов, в его строчную форму.
+[**ConvertTo-sthSID**](#convertto-sthsid) — Функция для конвертации SID, представленного в виде массива байтов, в его строчную форму.
 
 Вы можете установить модуль sthLDAPTools из PowerShell Gallery:
 
@@ -24,6 +24,8 @@ Install-Module sthLDAPTools
 ConvertFrom-sthSID -SID 'S-1-5-21-1234567890-1234567890-1234567890-1234'
 ```
 
+---
+
 Конвертация строки SID в массив байтов с использованием конвейера:
 
 ```
@@ -38,6 +40,8 @@ ConvertFrom-sthSID -SID 'S-1-5-21-1234567890-1234567890-1234567890-1234'
 $User = [ADSI]"LDAP://CN=user_name,CN=Users,DC=domain_name,DC=com"
 ConvertTo-sthSID -ByteArray $User.objectSID
 ```
+
+---
 
 Получение объекта пользователя user_name и конвертация значения его атрибута objectSID в строчную форму с использованием конвейера:
 

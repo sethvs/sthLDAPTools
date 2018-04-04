@@ -4,9 +4,9 @@
 
 It contains following functions:
 
-**ConvertFrom-sthSID** — Function for converting string SID into byte array form.
+[**ConvertFrom-sthSID**](#convertfrom-sthsid) — Function for converting string SID into byte array form.
 
-**ConvertTo-sthSID** — Function for converting byte array into string SID.
+[**ConvertTo-sthSID**](#convertto-sthsid) — Function for converting byte array into string SID.
 
 You can install sthLDAPTools module from PowerShell Gallery:
 
@@ -24,6 +24,8 @@ Convert string SID into a byte array:
 ConvertFrom-sthSID -SID 'S-1-5-21-1234567890-1234567890-1234567890-1234'
 ```
 
+---
+
 Convert string SID into byte array using pipeline:
 
 ```
@@ -38,6 +40,8 @@ Get the user_name user object and convert its objectSID property into a string f
 $User = [ADSI]"LDAP://CN=user_name,CN=Users,DC=domain_name,DC=com"
 ConvertTo-sthSID -ByteArray $User.objectSID
 ```
+
+---
 
 Get the user_name user object and convert its objectSID property into a string form using pipeline:
 
